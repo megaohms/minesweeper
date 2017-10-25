@@ -4,10 +4,7 @@ import './Board.css';
 
 class Board extends Component {
     state = {
-      boxes: [
-        // [{ val: 1 },{ val: -1 }],
-        // [{ val: 1 }, { val: 1 }]
-      ]
+      boxes: []
     };
 
     componentDidMount = () => {
@@ -55,11 +52,10 @@ class Board extends Component {
           continue;
         }
         for (var left = j - 1; left <= (j + 1); left++) {
-          if (!rows.hasOwnProperty(left)) {
+          if (!rows[up].hasOwnProperty(left)) {
             continue;
           };
           if (rows[up][left].val > -1) {
-            console.log("from ", i, " ", j, " incremementing ", left, ' ', up)
             rows[up][left].val = rows[up][left].val + 1;
           }
         }
@@ -67,7 +63,31 @@ class Board extends Component {
       return rows;
     };
 
-    revealSquare = () => {};
+    // todo: refactor click handler from Square to be here
+    revealSquare = (pos, boxes=this.state.boxes) => {
+      boxes[pos[0]][pos[1]].revealed = true;
+      var i = pos[0];
+      var j = pos[1];
+      if (boxes[i][j].val === 0) {
+        for (var up = i - 1; up <= (i + 1); up++) {
+          if (!boxes.hasOwnProperty(up)) {
+            continue;
+          }
+          for (var left = j - 1; left <= (j + 1); left++) {
+            if (i === up && j === left) {
+              continue;
+            }
+            if (!boxes[up].hasOwnProperty(left)) {
+              continue;
+            }
+            if (!boxes[up][left].revealed) {
+              this.revealSquare([up, left], boxes);
+            }
+          }
+        }
+      }
+      this.setState({ boxes });
+    };
 
     render() {
         return (
@@ -75,7 +95,7 @@ class Board extends Component {
                 { this.state.boxes.map((row, i) =>
                   <div className="board--row" key={i}>
                     { row.map((square, j) =>
-                      <Square value={square.val} key={j}/>
+                      <Square info={square} pos={[i,j]} revealSquare={this.revealSquare} key={j}/>
                     )}
                   </div>
                 )}
