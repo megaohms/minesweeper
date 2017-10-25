@@ -6,8 +6,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                { 'Minesweeper' }
-                <Board rows={4} bombs={1} />
+                <Board rows={8} bombs={10} />
             </div>
         );
     }

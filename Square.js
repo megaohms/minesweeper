@@ -14,11 +14,10 @@ class Square extends Component {
               </div>
             )
           }
-          else {
-            // todo: handle event for case of value === 0
+          else if (this.props.info.revealed) {
             inner = (
-              <div className="square--number">
-                  { this.props.info.revealed ? this.props.info.val : '' }
+              <div className="square--revealed-number">
+                  {this.props.info.val}
               </div>
             )
           }

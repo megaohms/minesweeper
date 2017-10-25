@@ -4,7 +4,7 @@ import './Board.css';
 
 class Board extends Component {
     state = {
-      boxes: []
+      boxes: [],
     };
 
     componentDidMount = () => {
@@ -30,11 +30,11 @@ class Board extends Component {
           var col = Math.floor(Math.random()*this.props.rows);
           rows[row][col].val = -1;
           if (bombsLocale.hasOwnProperty(row)) {
-            if (bombsLocale.indexOf(row) > -1) {
+            if (bombsLocale[row].indexOf(col) > -1) {
               i--;
             }
             else {
-              bombsLocale.push(col);
+              bombsLocale[row].push(col);
               rows = this.incrementAdjacent(row, col, rows);
             }
           }
@@ -89,8 +89,24 @@ class Board extends Component {
       this.setState({ boxes });
     };
 
+    reset = () => {
+      this.makeGrid();
+    }
+
+    endGame = () => {
+
+    }
+
     render() {
         return (
+          <div className="board-wrapper">
+            <div className="board-title">
+              {'Minesweeper'}
+            </div>
+            <div className="counter">{this.state.counter}</div>
+            <div className="resetButton" onClick={this.reset}>
+              {'reset'}
+            </div>
             <div className="board">
                 { this.state.boxes.map((row, i) =>
                   <div className="board--row" key={i}>
@@ -100,6 +116,7 @@ class Board extends Component {
                   </div>
                 )}
             </div>
+          </div>
         );
     }
 }
