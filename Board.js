@@ -5,29 +5,34 @@ import './Board.css';
 class Board extends Component {
     state = {
       boxes: [],
+      bombs: {}
     };
 
     componentDidMount = () => {
       this.makeGrid();
     };
 
-    makeGrid = () => {
+    componentWillReceiveProps = (next) => {
+      this.makeGrid(next.rows, next.bombs);
+    }
+
+    makeGrid = (numRows=this.props.rows, numBombs=this.props.bombs) => {
       var rows = [];
-      for (var i = 0; i < this.props.rows; i++) {
+      for (var i = 0; i < numRows; i++) {
         var row = [];
-        for (var j = 0; j < this.props.rows; j++) {
+        for (var j = 0; j < numRows; j++) {
           row.push({ val: 0, revealed: false });
         }
         rows.push(row);
       }
-      this.assignBombs(rows);
+      this.assignBombs(rows, numRows, numBombs);
     };
 
-    assignBombs = (rows) => {
+    assignBombs = (rows, numRows, numBombs) => {
         var bombsLocale = {};
-        for (var i = 0; i < this.props.bombs; i++) {
-          var row = Math.floor(Math.random()*this.props.rows);
-          var col = Math.floor(Math.random()*this.props.rows);
+        for (var i = 0; i < numBombs; i++) {
+          var row = Math.floor(Math.random()*numRows);
+          var col = Math.floor(Math.random()*numRows);
           rows[row][col].val = -1;
           if (bombsLocale.hasOwnProperty(row)) {
             if (bombsLocale[row].indexOf(col) > -1) {
@@ -43,7 +48,7 @@ class Board extends Component {
             rows = this.incrementAdjacent(row, col, rows);
           }
         }
-        this.setState({ boxes: rows });
+        this.setState({ boxes: rows, bombs: bombsLocale });
     };
 
     incrementAdjacent = (i, j, rows) => {
@@ -104,7 +109,7 @@ class Board extends Component {
               {'Minesweeper'}
             </div>
             <div className="counter">{this.state.counter}</div>
-            <div className="resetButton" onClick={this.reset}>
+            <div className="reset-button" onClick={this.reset}>
               {'reset'}
             </div>
             <div className="board">

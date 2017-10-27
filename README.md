@@ -1,12 +1,12 @@
-# React Laboratory
+# Minesweeper
 
-A minimal React dev environment. 
+Classic game from Windows OS. Reveal all the non-bomb squares, and beat your best time! 
 
 ## Installation
 
 ```
-$ git clone https://github.com/megaohms/react-laboratory.git
-$ cd react-laboratory
+$ git clone https://github.com/megaohms/minesweeper.git
+$ cd minesweeper
 $ npm install
 ```
 
@@ -24,4 +24,4 @@ Open your browser to ***http://localhost:8080***
 ```
 $ npm run build
 ```
-then open /path/to/react-laboratory/index.html in your browser.
+then open /path/to/minesweeper/index.html in your browser.

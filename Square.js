@@ -17,7 +17,7 @@ class Square extends Component {
           else if (this.props.info.revealed) {
             inner = (
               <div className="square--revealed-number">
-                  {this.props.info.val}
+                  {this.props.info.val ? this.props.info.val : ''}
               </div>
             )
           }

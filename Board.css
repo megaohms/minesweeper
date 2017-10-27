@@ -1,3 +1,7 @@
+.settings {
+  font-size: 24px;
+}
+
 .board-wrapper {
   display: flex;
   flex-direction: column;
@@ -6,6 +10,7 @@
 }
 
 .board {
+  border: solid black 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,4 +18,11 @@
 
 .board--row {
   display: flex;
+}
+
+.reset-button {
+  border: solid black 2px;
+  border-bottom: 0px;
+  padding: 5px;
+  background-color: gold;
 }

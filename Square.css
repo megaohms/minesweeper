@@ -9,6 +9,7 @@
 }
 
 .square--revealed-bomb {
+  border: solid black .5px;
   width: 100%;
   height: 100%;
   background-color: indianred;
@@ -18,6 +19,7 @@
 }
 
 .square--revealed-number {
+  border: solid black .5px;
   width: 100%;
   height: 100%;
   background-color: lightsteelblue;
